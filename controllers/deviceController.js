@@ -9,6 +9,12 @@ const fs = require("fs");
 const User = require("../models/user");
 var ObjectId = require("mongodb").ObjectId;
 const { exec } = require("child_process");
+require('dotenv').config();
+
+// Access the SAVE_INTERVAL_MINUTES variable
+const SAVE_INTERVAL_MINUTES = parseFloat(process.env.SAVE_INTERVAL_MINUTES) || 0.1;
+
+console.log(`Save Interval Minutes: ${SAVE_INTERVAL_MINUTES}`);
 
 // ======================================= testing ============================================= //
 
@@ -707,7 +713,7 @@ client.on("message", async function (topic, message) {
 global.lastSaveTimes = global.lastSaveTimes || new Map();
 
 async function saveLatestData(structuredMsg, deviceId, parameterValue) {
-    const SAVE_INTERVAL_MINUTES = 0.1;
+   // const SAVE_INTERVAL_MINUTES = 0.1;
     const DEVICE_TYPE = structuredMsg.DEVICE_TYPE || 'unknown';
     const now = new Date();
     
